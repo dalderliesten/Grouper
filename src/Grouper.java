@@ -25,8 +25,11 @@ public class Grouper {
 	// Variable to determine group size.
 	static int groupSize = 6;
 
+	// Variable for determining group 'group' descriptor.
+	static String groupDescriptor = "Project";
+
 	// Variables determining read file and write file location.
-	static String readFileLocation = "C:\\Users\\David\\Downloads\\duh.csv";
+	static String readFileLocation = "C:\\Users\\David\\Downloads\\testy.csv";
 	static String writeFileLocation = "C:\\Users\\David\\Downloads\\result.csv";
 
 	// List of all students for tracking.
@@ -78,6 +81,9 @@ public class Grouper {
 			// Since we have a CSV, set comma as the delimiter.
 			inputReader.useDelimiter(",");
 
+			// Skip the first line of content to avoid the header.
+			inputReader.nextLine();
+
 			// For all students, loop to iterate and create objects.
 			while (inputReader.hasNextLine()) {
 				// Get all elements of the current student.
@@ -89,7 +95,7 @@ public class Grouper {
 				// Iterate through all the grades given and store them in a list.
 				ArrayList<Double> gradeList = new ArrayList<Double>();
 
-				// Iterate from index 1 to length - 1 (delimiter '#' symbol not needed).
+				// Iterate from index 4 to length - 1 (delimiter '#' symbol not needed).
 				for (int i = 1; i < currentLine.length - 1; i++) {
 					// If grade exists, and not empty CSV position, add value.
 					if (!currentLine[i].equals("")) {
@@ -205,7 +211,7 @@ public class Grouper {
 		}
 
 		// Create string for output result.
-		String result = "";
+		String result = "OrgDefinedId,Username,LastName,FirstName,Email,GroupCategory,GroupName\n";
 
 		// Iterate through all groups for writing.
 		for (int i = 0; i < numberOfGroups; i++) {
@@ -221,8 +227,9 @@ public class Grouper {
 				// Print student details as debug information.
 				System.out.println("	Student: " + currStudent.studentID + ", Grade: " + currStudent.averageGrade);
 
-				// Write student to file in order specified.
-				result = result + currStudent.studentID + "," + (i + 1) + "\n";
+				// Write student to file in order specified with comma's for required unused
+				// columns.
+				result = result + "#" + currStudent.studentID + ",,,,," + groupDescriptor + "," + (i + 1) + "\n";
 			}
 		}
 

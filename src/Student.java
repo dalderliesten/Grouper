@@ -25,10 +25,14 @@ public class Student implements Comparable<Student> {
 	 */
 	public Student(int studentID, List<Double> grades) {
 		this.studentID = studentID;
+
+		// Set activity to be false, meaning student isn't active.
 		this.isActive = false;
 
 		for (Double currentGrade : grades) {
 			this.averageGrade += currentGrade;
+
+			// Since (at least) a grade has been found, student is active in the course.
 			this.isActive = true;
 		}
 
@@ -53,5 +57,4 @@ public class Student implements Comparable<Student> {
 	public int compareTo(Student other) {
 		return Double.compare(this.averageGrade, other.averageGrade);
 	}
-
 }
