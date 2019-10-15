@@ -20,10 +20,14 @@ public class Student implements Comparable<Student> {
 	 * relevant aspects required for the tool. Also sets passed arguments as local
 	 * variables.
 	 * 
-	 * @param studentID the identification parameter for the student.
-	 * @param grades    the list of grades for the student.
+	 * @param studentID        the identification parameter for the student.
+	 * @param grades           the list of grades for the student.
+	 * @param handinOnly       determines if the average is calculated with all
+	 *                         grades or handed-in grades only.
+	 * @param totalAssignments number of assignments total the course has, only used
+	 *                         iff handinOnly false.
 	 */
-	public Student(int studentID, List<Double> grades) {
+	public Student(int studentID, List<Double> grades, boolean handinOnly, int totalAssignments) {
 		this.studentID = studentID;
 
 		// Set activity to be false, meaning student isn't active.
@@ -36,7 +40,13 @@ public class Student implements Comparable<Student> {
 			this.isActive = true;
 		}
 
-		this.averageGrade = this.averageGrade / grades.size();
+		// Divide either by all assignments or by handed-in assignments to calculate
+		// average.
+		if (handinOnly) {
+			this.averageGrade = this.averageGrade / grades.size();
+		} else {
+			this.averageGrade = this.averageGrade / totalAssignments;
+		}
 	}
 
 	/**

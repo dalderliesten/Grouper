@@ -25,12 +25,22 @@ public class Grouper {
 	// Variable to determine group size.
 	static int groupSize = 6;
 
+	// Variable for total assignments in course, relevant for below.
+	static int totalAssignments = 2;
+
+	// Variable to determine whether all required grades should be considered, or
+	// only those handed-in.
+	// TRUE: student hands in 1 of 2 assignments, grade is that 1 assignment
+	// grade/1.
+	// FALSE: student hands in 1 of 2 assignment, grade is still assignment grade/2.
+	static boolean handinOnly = false;
+
 	// Variable for determining group 'group' descriptor.
 	static String groupDescriptor = "Project";
 
 	// Variables determining read file and write file location.
-	static String readFileLocation = "C:\\Users\\David\\Downloads\\testy.csv";
-	static String writeFileLocation = "C:\\Users\\David\\Downloads\\result.csv";
+	static String readFileLocation = "LOCATION OF FILE EXPORTED FROM BRIGHTSPACE";
+	static String writeFileLocation = "LOCATION WHERE YOU WANT THE RESULTING GROUP FILE TO GO";
 
 	// List of all students for tracking.
 	static ArrayList<Student> studentList = new ArrayList<>();
@@ -104,7 +114,7 @@ public class Grouper {
 				}
 
 				// Create current student for adding and sorting into buckets.
-				Student toAdd = new Student(studentID, gradeList);
+				Student toAdd = new Student(studentID, gradeList, handinOnly, totalAssignments);
 
 				// If the student has a grade, meaning they are active in the course.
 				if (toAdd.isActive) {
